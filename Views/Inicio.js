@@ -1,10 +1,11 @@
-import { Pressable, StyleSheet, Text, View, Alert, BackHandler } from 'react-native'
+import { StyleSheet, Text, View, Alert, BackHandler, Animated } from 'react-native'
 import { useEffect } from 'react'
-
-export default function Inicio ({ navigation }) {
+import { PrimaryButton } from '../components/Buttons'
+import { StatusBar } from 'react-native'
+export default function Inicio({ navigation }) {
   useEffect(() => {
+
     const backAction = () => {
-      console.log(navigation.canGoBack())
       !navigation.canGoBack()
         ? Alert.alert('¿SALIR?', '¿Estas seguro de salir?', [
           {
@@ -17,47 +18,61 @@ export default function Inicio ({ navigation }) {
         : navigation.goBack()
       return true
     }
-
     const backHandler = BackHandler.addEventListener(
       'hardwareBackPress',
       backAction
     )
-
     return () => backHandler.remove()
   }, [])
+
+  const goToScann = () => {
+    navigation.navigate('Scanner')
+  }
+
+
   return (
-    <View style={styles.container}>
-      <Pressable style={styles.button} onPress={() => navigation.navigate('Scanner')} >
-        <Text>PRESIONE PARA ESCANEAR SU CODIGO</Text>
-      </Pressable>
-    </View>
+    <>
+      <StatusBar hidden={false} barStyle='default' backgroundColor={'#ff7711'} />
+      <View style={styles.container}>
+        <Text style={styles.title}>Check in work</Text>
+        <Animated.Image
+          resizeMode={"contain"}
+          style={styles.logo}
+          source={{
+            uri: 'https://cdn-icons-png.flaticon.com/512/1754/1754534.png'
+          }}
+        >
+        </Animated.Image>
+        <PrimaryButton
+          onPress={goToScann}
+          title="presione para escanear su código QR"
+        />
+      </View>
+    </>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: '#222',
     display: 'flex',
-    backgroundColor: '#aaa',
     justifyContent: 'center',
-    height: '100%'
+    height: '100%',
   },
   title: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
+    position:'absolute',
+    top:60,
+    width:"100%",
+    fontSize: 50,
     color: '#fff',
-    zIndex: 10
+    fontWeight: 'bold',
+    textAlign: 'center',
+    margin: 10
   },
-  button: {
-    display: 'flex',
-    position: 'absolute',
+  logo: {
     alignSelf: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    height: 40,
-    width: '70%',
-    borderRadius: 5,
-    zIndex: 2
+    height: 200,
+    width: "90%",
+    marginBottom:40,
   }
 })
