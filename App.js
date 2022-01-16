@@ -1,11 +1,11 @@
-import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Scanner from './Views/Scanner';
-import Inicio from './Views/Inicio';
+import { NavigationContainer } from '@react-navigation/native'
+import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import Scanner from './Views/Scanner'
+import Inicio from './Views/Inicio'
 
-const Stack = createNativeStackNavigator();
+const Stack = createNativeStackNavigator()
 
-export default function App() {
+export default function App () {
   return (
     <NavigationContainer>
       <Stack.Navigator>
@@ -13,5 +13,5 @@ export default function App() {
         <Stack.Screen name="Scanner" component={Scanner} options={{ headerShown: false }} />
       </Stack.Navigator>
     </NavigationContainer>
-  );
+  )
 }
