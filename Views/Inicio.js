@@ -1,4 +1,4 @@
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, StyleSheet, Text, View } from 'react-native';
 import { useEffect } from 'react';
 import { Alert, BackHandler } from 'react-native';
 
@@ -6,19 +6,19 @@ export default function Inicio({ navigation }) {
   useEffect(() => {
     const backAction = () => {
       console.log(navigation.canGoBack());
-      !navigation.canGoBack() ? Alert.alert("¿SALIR?", "¿Estas seguro de salir?", [
+      !navigation.canGoBack() ? Alert.alert('¿SALIR?', '¿Estas seguro de salir?', [
         {
-          text: "Cancelar",
+          text: 'Cancelar',
           onPress: () => null,
-          style: "cancel"
+          style: 'cancel'
         },
-        { text: "SI", onPress: () => BackHandler.exitApp() }
+        { text: 'SI', onPress: () => BackHandler.exitApp() }
       ]) : navigation.goBack();
       return true;
     };
 
     const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
+      'hardwareBackPress',
       backAction
     );
 
