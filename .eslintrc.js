@@ -6,7 +6,7 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    'standard'
+    'standard',
   ],
   parserOptions: {
     ecmaFeatures: {
@@ -19,6 +19,6 @@ module.exports = {
     'react'
   ],
   rules: {
-
+    
   }
 }

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Button, Pressable, TouchableOpacity, Alert } from 'react-native'
+import { Text, View, StyleSheet, Pressable, TouchableOpacity, Alert } from 'react-native'
+import { PrimaryButton } from '../components/Buttons'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 
-export default function Inicio ({ navigation }) {
+export default function Inicio({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
-
+  
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync()
@@ -32,9 +33,7 @@ export default function Inicio ({ navigation }) {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={styles.scanner}
       />
-      {scanned && <Pressable style={styles.button} onPress={() => setScanned(false)} >
-        <Text>PRESIONE PARA VOLVER A ESCANEAR</Text>
-      </Pressable>}
+      {scanned && <PrimaryButton position={'absolute'} title='PRESIONE PARA VOLVER A ESCANEAR' onPress={() => setScanned(false)} />}
     </View>
   )
 }
@@ -43,32 +42,24 @@ const styles = StyleSheet.create({
   container: {
     display: 'flex',
     backgroundColor: '#344',
-    justifyContent: 'center',
-    height: '100%'
+    height: '100%',
+    width: '100%',
+    justifyContent: 'flex-start',
   },
   title: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
     color: '#fff',
-    zIndex: 10
+    flex: 1,
+    fontSize: 30,
+    fontWeight: 'bold',
+    margin: 10,
+    textAlign: 'center',
+    textAlignVertical: 'center',
   },
   scanner: {
-    backgroundColor: '#fff',
+    flex: 7,
     height: '80%',
     width: '100%',
-    zIndex: 0
-  },
-  button: {
-    display: 'flex',
-    position: 'absolute',
-    alignSelf: 'center',
-    alignItems: 'center',
-    backgroundColor: '#fff',
-    justifyContent: 'center',
-    height: 40,
-    width: '70%',
-    borderRadius: 5,
-    zIndex: 2
+    bottom: 0,
+    alignSelf: 'center'
   }
 })
