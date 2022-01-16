@@ -6,7 +6,8 @@ import { BarCodeScanner } from 'expo-barcode-scanner'
 export default function Inicio({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
-  
+  const [error, setError] = useState(false)
+
   useEffect(() => {
     (async () => {
       const { status } = await BarCodeScanner.requestPermissionsAsync()
@@ -15,13 +16,29 @@ export default function Inicio({ navigation }) {
   }, [])
 
   const handleBarCodeScanned = ({ type, data }) => {
-    setScanned(true)
-    Alert.alert('Code read successfully', `Bar code with type ${type} and data ${data} has been scanned!`, [{ text: 'OK', onPress: () => navigation.replace('Home') }])
+    try {
+      setScanned(true)
+      const [name, secName, lastName, secLastName, cc, occupation] = (data).split('|')
+    } catch (error) {
+      setError(true)
+      console.error(error)
+    }
+    Alert.alert('Code read successfully', `Type: ${type}`,
+      [{
+        text: 'OK',
+        onPress: () => navigation.goBack()
+      }])
+  }
+
+  const scannAgain = () => {
+    setScanned(false)
+    setError(false)
   }
 
   if (hasPermission === null) {
     return <Text>Requesting for camera permission</Text>
   }
+
   if (hasPermission === false) {
     return <Text>No access to camera</Text>
   }
@@ -33,7 +50,12 @@ export default function Inicio({ navigation }) {
         onBarCodeScanned={scanned ? undefined : handleBarCodeScanned}
         style={styles.scanner}
       />
-      {scanned && <PrimaryButton position={'absolute'} title='PRESIONE PARA VOLVER A ESCANEAR' onPress={() => setScanned(false)} />}
+      {scanned &&
+        <PrimaryButton
+          position={'absolute'}
+          title='PRESIONE PARA VOLVER A ESCANEAR'
+          onPress={scannAgain}
+        />}
     </View>
   )
 }
@@ -44,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#344',
     height: '100%',
     width: '100%',
-    justifyContent: 'flex-start',
+    justifyContent: 'center',
   },
   title: {
     color: '#fff',
