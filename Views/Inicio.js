@@ -1,10 +1,9 @@
-import { StyleSheet, Text, View, Alert, BackHandler, Animated } from 'react-native'
+import { StyleSheet, Text, View, Alert, BackHandler, Animated, StatusBar } from 'react-native'
 import { useEffect } from 'react'
 import { PrimaryButton } from '../components/Buttons'
-import { StatusBar } from 'react-native'
-export default function Inicio({ navigation }) {
-  useEffect(() => {
 
+export default function Inicio ({ navigation }) {
+  useEffect(() => {
     const backAction = () => {
       !navigation.canGoBack()
         ? Alert.alert('¿SALIR?', '¿Estas seguro de salir?', [
@@ -29,14 +28,13 @@ export default function Inicio({ navigation }) {
     navigation.navigate('Scanner')
   }
 
-
   return (
     <>
       <StatusBar hidden={false} barStyle='default' backgroundColor={'#ff7711'} />
       <View style={styles.container}>
         <Text style={styles.title}>Check in work</Text>
         <Animated.Image
-          resizeMode={"contain"}
+          resizeMode={'contain'}
           style={styles.logo}
           source={{
             uri: 'https://cdn-icons-png.flaticon.com/512/1754/1754534.png'
@@ -57,12 +55,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#222',
     display: 'flex',
     justifyContent: 'center',
-    height: '100%',
+    height: '100%'
   },
   title: {
-    position:'absolute',
-    top:60,
-    width:"100%",
+    position: 'absolute',
+    top: 60,
+    width: '100%',
     fontSize: 50,
     color: '#fff',
     fontWeight: 'bold',
@@ -72,7 +70,7 @@ const styles = StyleSheet.create({
   logo: {
     alignSelf: 'center',
     height: 200,
-    width: "90%",
-    marginBottom:40,
+    width: '90%',
+    marginBottom: 40
   }
 })

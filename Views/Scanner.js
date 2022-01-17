@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react'
-import { Text, View, StyleSheet, Pressable, TouchableOpacity, Alert } from 'react-native'
+import { Text, View, StyleSheet, Alert } from 'react-native'
 import { PrimaryButton } from '../components/Buttons'
 import { BarCodeScanner } from 'expo-barcode-scanner'
 
-export default function Inicio({ navigation }) {
+export default function Inicio ({ navigation }) {
   const [hasPermission, setHasPermission] = useState(null)
   const [scanned, setScanned] = useState(false)
   const [error, setError] = useState(false)
@@ -66,7 +66,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#344',
     height: '100%',
     width: '100%',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   title: {
     color: '#fff',
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     margin: 10,
     textAlign: 'center',
-    textAlignVertical: 'center',
+    textAlignVertical: 'center'
   },
   scanner: {
     flex: 7,
