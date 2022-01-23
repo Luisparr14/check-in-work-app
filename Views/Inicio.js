@@ -1,6 +1,5 @@
 import { useEffect } from 'react'
 import { Alert, BackHandler, StyleSheet, Text, View } from 'react-native'
-
 export default function Inicio ({ navigation, route }) {
   useEffect(() => {
     const backAction = () => {
@@ -32,7 +31,7 @@ export default function Inicio ({ navigation, route }) {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
+    flex: 0.98,
     backgroundColor: '#aaa',
     alignItems: 'center',
     justifyContent: 'center'

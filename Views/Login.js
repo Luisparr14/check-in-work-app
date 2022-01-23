@@ -1,6 +1,6 @@
 import axios from 'axios'
 import { useState } from 'react'
-import { StyleSheet, Text, View, Alert, StatusBar } from 'react-native'
+import { StyleSheet, Text, View, Alert } from 'react-native'
 import { PrimaryButton } from '../components/Buttons'
 import InputText from '../components/InputText'
 import { url } from '../config'
@@ -17,7 +17,7 @@ export default function Login ({ navigation }) {
     try {
       const user = await axios.get(`${url}/empleados/${identification}`)
       if (user.data.ok) {
-        navigation.replace('Home', { user: user.data.data })
+        navigation.replace('HomeTabs', { user: user.data.data })
       }
     } catch (error) {
       if (error.response.status === 404) {
@@ -29,7 +29,6 @@ export default function Login ({ navigation }) {
   }
   return (
     <>
-      <StatusBar hidden={false} barStyle='default' backgroundColor={'#ff7711'} />
       <View style={styles.container}>
         <View style={styles.titleContainer}>
           <Text style={styles.textTitle}>Check in work</Text>

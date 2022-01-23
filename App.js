@@ -1,10 +1,70 @@
 import { NavigationContainer } from '@react-navigation/native'
 import { createNativeStackNavigator } from '@react-navigation/native-stack'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+import { Ionicons, Feather } from '@expo/vector-icons'
 import Login from './Views/Login'
 import Inicio from './Views/Inicio'
 import { useEffect } from 'react'
-import { Alert, BackHandler } from 'react-native'
+import { Alert, BackHandler, StyleSheet } from 'react-native'
+import { StatusBar } from 'expo-status-bar'
 const Stack = createNativeStackNavigator()
+const Tab = createBottomTabNavigator()
+
+function MyTabs () {
+  return (
+    <Tab.Navigator screenOptions={{
+      tabBarStyle: {
+        height: 60
+      },
+      tabBarActiveTintColor: '#ff7711'
+    }}>
+      <Tab.Screen name='Home' component={Inicio} options={{
+        tabBarLabel: 'Inicio',
+        headerShown: false,
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="home" size={size} color={color} />
+        ),
+        tabBarLabelStyle: styles.tabText
+      }} />
+      <Tab.Screen name='Employee' component={Inicio} options={{
+        tabBarLabel: 'Empleados',
+        headerShown: false,
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="person" size={size} color={color} />
+        ),
+        tabBarLabelStyle: styles.tabText
+      }} />
+      <Tab.Screen name='Cards' component={Inicio} options={{
+        tabBarLabel: 'Tarjetas',
+        headerShown: false,
+        tabBarIcon: ({ color, size }) => (
+          <Ionicons name="card" size={size} color={color} />
+        ),
+        tabBarLabelStyle: styles.tabText
+      }} />
+      <Tab.Screen name='Records' component={Inicio} options={{
+        tabBarLabel: 'Registros',
+        headerShown: false,
+        tabBarIcon: ({ color, size }) => (
+          <Feather name="user-check" size={size} color={color} />
+        ),
+        tabBarLabelStyle: styles.tabText
+      }} />
+    </Tab.Navigator>
+  )
+}
+
+function Stacks () {
+  return (
+    <>
+    <StatusBar hidden={false} barStyle='default' backgroundColor={'#ff7711'} />
+    <Stack.Navigator>
+      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+      <Stack.Screen name="HomeTabs" component={MyTabs} options={{ headerShown: false }} />
+    </Stack.Navigator>
+    </>
+  )
+}
 
 export default function App ({ navigation }) {
   useEffect(() => {
@@ -24,12 +84,16 @@ export default function App ({ navigation }) {
       backAction
     )
   }, [])
+
   return (
     <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-        <Stack.Screen name="Home" component={Inicio} options={{ headerShown: false }} />
-      </Stack.Navigator>
+      <Stacks />
     </NavigationContainer>
   )
 }
+
+const styles = StyleSheet.create({
+  tabText: {
+    fontSize: 15
+  }
+})
