@@ -2,7 +2,7 @@ import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 
 const PrimaryButton = ({ onPress, title, position }) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={[styles.button, { position: position }]}>
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={[styles.button, { position: position || 'relative' }]}>
       <Text style={styles.text}>
         {title.toUpperCase()}
       </Text>
