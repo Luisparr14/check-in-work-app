@@ -5,8 +5,9 @@ import { Ionicons, Feather } from '@expo/vector-icons'
 import Login from './Views/Login'
 import Inicio from './Views/Inicio'
 import { useEffect } from 'react'
-import { Alert, BackHandler, StyleSheet } from 'react-native'
-import { StatusBar } from 'expo-status-bar'
+import { Alert, BackHandler, StyleSheet, StatusBar } from 'react-native'
+import ViewEmployees from './Views/Employees/ViewEmployees'
+import ViewCards from './Views/Cards/ViewCards'
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -14,7 +15,7 @@ function MyTabs () {
   return (
     <Tab.Navigator screenOptions={{
       tabBarStyle: {
-        height: 60
+        height: 55
       },
       tabBarActiveTintColor: '#ff7711'
     }}>
@@ -26,7 +27,7 @@ function MyTabs () {
         ),
         tabBarLabelStyle: styles.tabText
       }} />
-      <Tab.Screen name='Employee' component={Inicio} options={{
+      <Tab.Screen name='Employee' component={ViewEmployees} options={{
         tabBarLabel: 'Empleados',
         headerShown: false,
         tabBarIcon: ({ color, size }) => (
@@ -34,7 +35,7 @@ function MyTabs () {
         ),
         tabBarLabelStyle: styles.tabText
       }} />
-      <Tab.Screen name='Cards' component={Inicio} options={{
+      <Tab.Screen name='Cards' component={ViewCards} options={{
         tabBarLabel: 'Tarjetas',
         headerShown: false,
         tabBarIcon: ({ color, size }) => (
@@ -57,11 +58,11 @@ function MyTabs () {
 function Stacks () {
   return (
     <>
-    <StatusBar hidden={false} barStyle='default' backgroundColor={'#ff7711'} />
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
-      <Stack.Screen name="HomeTabs" component={MyTabs} options={{ headerShown: false }} />
-    </Stack.Navigator>
+      <StatusBar hidden={false} barStyle='default' backgroundColor={'#ff7711'} />
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="HomeTabs" component={MyTabs} options={{ headerShown: false }} />
+      </Stack.Navigator>
     </>
   )
 }
