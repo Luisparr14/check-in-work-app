@@ -4,10 +4,13 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 import { Ionicons, Feather } from '@expo/vector-icons'
 import Login from './Views/Login'
 import Inicio from './Views/Inicio'
+import AddCard from './Views/Cards/AddCard'
 import { useEffect } from 'react'
 import { Alert, BackHandler, StyleSheet, StatusBar } from 'react-native'
 import ViewEmployees from './Views/Employees/ViewEmployees'
 import ViewCards from './Views/Cards/ViewCards'
+import ViewRecords from './Views/Records/ViewRecords'
+import AddEmployee from './Views/Employees/AddEmployee'
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -43,7 +46,7 @@ function MyTabs () {
         ),
         tabBarLabelStyle: styles.tabText
       }} />
-      <Tab.Screen name='Records' component={Inicio} options={{
+      <Tab.Screen name='Records' component={ViewRecords} options={{
         tabBarLabel: 'Registros',
         headerShown: false,
         tabBarIcon: ({ color, size }) => (
@@ -62,6 +65,8 @@ function Stacks () {
       <Stack.Navigator>
         <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
         <Stack.Screen name="HomeTabs" component={MyTabs} options={{ headerShown: false }} />
+        <Stack.Screen name="AddCard" component={AddCard} options={{ headerShown: false }} />
+        <Stack.Screen name="AddEmployee" component={AddEmployee} options={{ headerShown: false }} />
       </Stack.Navigator>
     </>
   )

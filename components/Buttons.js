@@ -1,8 +1,14 @@
 import { Text, StyleSheet, TouchableOpacity } from 'react-native'
 
-const PrimaryButton = ({ onPress, title, position }) => {
+const PrimaryButton = ({ onPress, title, position, topBtn, marginBtn, paddingBtn, backgroundColor }) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={[styles.button, { position: position || 'relative' }]}>
+    <TouchableOpacity activeOpacity={0.8} onPress={onPress} style={[styles.button, {
+      position: position || 'relative',
+      top: topBtn === 0 ? 0 : topBtn || 20,
+      margin: marginBtn === 0 ? 0 : marginBtn || 10,
+      padding: paddingBtn === 0 ? 0 : paddingBtn || 10,
+      backgroundColor: backgroundColor === undefined ? '#32db79' : backgroundColor
+    }]}>
       <Text style={styles.text}>
         {title.toUpperCase()}
       </Text>
@@ -17,10 +23,7 @@ const styles = StyleSheet.create({
     display: 'flex',
     alignSelf: 'center',
     alignItems: 'center',
-    backgroundColor: '#fff',
-    padding: 10,
-    borderRadius: 5,
-    margin: 10
+    borderRadius: 5
   },
   text: {
     fontSize: 15,

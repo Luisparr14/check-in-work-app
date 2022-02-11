@@ -8,14 +8,13 @@ const useAxios = (url, refresh) => {
     const fetchData = async () => {
       try {
         const result = await axios(url)
-        console.log(result.data.ok)
         if (result.data.ok) {
           setData(result.data.data)
         } else {
           SetError(true)
         }
       } catch (error) {
-        console.log(error)
+        console.log(error.response.data)
       }
     }
     fetchData()

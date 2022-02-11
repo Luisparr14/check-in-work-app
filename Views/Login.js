@@ -6,25 +6,25 @@ import InputText from '../components/InputText'
 import { url } from '../config'
 
 export default function Login ({ navigation }) {
-  const [identification, onChangeIdentification] = useState(null)
-  
+  const [id, setId] = useState('')
+
   const handleLogin = async () => {
-    if (identification === '') {
+    if (id === '') {
       Alert.alert('Error', 'Ingrese su identificación')
       return
     }
 
     try {
-      const user = await axios.get(`${url}/empleados/${identification}`)
-      if (user.data.ok) {
-        navigation.replace('HomeTabs', { user: user.data.data })
+      const response = await axios.post(`${url}/auth/login`, { id })
+      if (response.data.ok) {
+        Alert.alert(`Bienvenido ${response.data.empleado.name} ${response.data.empleado.sec_name}`,
+          `${response.data.message}`,
+          [
+            { text: 'OK', onPress: () => navigation.replace('HomeTabs', { user: response.data.empleado.name }) }
+          ])
       }
     } catch (error) {
-      if (error.response.status === 404) {
-        Alert.alert('Error', 'Usuario no encontrado')
-      } else {
-        Alert.alert('Error', 'Error en el servidor')
-      }
+      Alert.alert('Error', error.response.data.message)
     }
   }
   return (
@@ -35,8 +35,8 @@ export default function Login ({ navigation }) {
         </View>
         <InputText
           placeHolder='Numero de empleado (CC)'
-          value={identification}
-          onChangeText={onChangeIdentification}
+          value={id}
+          onChangeText={setId}
         />
         <PrimaryButton
           title='Ingresar'

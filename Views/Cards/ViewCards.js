@@ -35,14 +35,13 @@ export default function ViewCards ({ navigation, route }) {
   
   const onRefresh = React.useCallback(() => {
     setRefreshing(true)
-    console.log('refreshing')
     wait(200).then(() => {
       setRefreshing(false)
-      console.log('refreshed')
     })
   }, [])
 
   const { data } = useAxios(`${url}/cards`, refreshing)
+  
   return (
     <>
       <ScrollView

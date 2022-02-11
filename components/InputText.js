@@ -1,12 +1,12 @@
 import { StyleSheet, TextInput, View } from 'react-native'
-export default function InputText ({ placeHolder, value, onChangeText }) {
+export default function InputText ({ placeHolder, value, onChangeText, type }) {
   return (
     <View style={styles.constainer}>
       <TextInput
         placeholder={placeHolder}
         onChangeText={onChangeText}
         value={value}
-        keyboardType='number-pad'
+        keyboardType={type || 'number-pad'}
         style={styles.input}
       />
     </View>

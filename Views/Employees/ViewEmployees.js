@@ -35,10 +35,8 @@ export default function ViewEmployees ({ navigation, route }) {
 
   const onRefresh = React.useCallback(() => {
     setRefreshing(true)
-    console.log('refreshing')
     wait(200).then(() => {
       setRefreshing(false)
-      console.log('refreshed')
     })
   }, [])
   

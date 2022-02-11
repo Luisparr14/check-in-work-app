@@ -1,14 +1,18 @@
 import { StyleSheet, Text, View } from 'react-native'
 
-export default function EmployeeCard ({ id, name, secName, lastName, rol, rfidCard }) {
-  rfidCard === null ? rfidCard = 'Sin tarjeta' : rfidCard.trim()
+export default function RecordCard ({ number, card, fechaHora }) {
+  if (card === null) {
+    card = 'La tarjeta fue borrada'
+  }
+  const dateTime = new Date(fechaHora)
+  const date = dateTime.toLocaleDateString()
+  const time = dateTime.toLocaleTimeString()
   return (
     <View style={styles.container}>
       <View style={styles.content}>
-        <Text style={styles.text}><Text style={styles.subText}>Nombre:</Text> {name} {secName}</Text>
-        <Text style={styles.text}><Text style={styles.subText}>Apellido:</Text> {lastName}</Text>
-        <Text style={styles.text}><Text style={styles.subText}>Puesto:</Text> {rol}</Text>
-        <Text style={styles.text}><Text style={styles.subText}>Id Tarjeta RFID:</Text> {rfidCard}</Text>
+        <Text style={styles.text}><Text style={styles.subText}>Numero de registro:</Text> {number}</Text>
+        <Text style={styles.text}><Text style={styles.subText}>Tarjeta:</Text> {card}</Text>
+        <Text style={styles.text}><Text style={styles.subText}>Fecha y hora de ingreso:</Text> {'\n' + `${date} ${time}`}</Text>
       </View>
     </View>
   )
@@ -39,7 +43,8 @@ const styles = StyleSheet.create({
     textShadowColor: '#000',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 1,
-    textDecorationStyle: 'solid'
+    textDecorationStyle: 'solid',
+    textAlign: 'center'
   },
   subText: {
     color: '#e33',

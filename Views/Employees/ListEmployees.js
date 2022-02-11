@@ -1,6 +1,7 @@
 import EmployeeCard from './EmployeeCard'
 
 export default function ListEmployees ({ employees }) {
+  console.log(employees)
   return (
     employees.map((employees) => (
       <EmployeeCard
@@ -8,7 +9,7 @@ export default function ListEmployees ({ employees }) {
         name={employees.name}
         secName={employees.sec_name}
         lastName={employees.last_name}
-        occupation={employees.occupation}
+        rol={employees.nombre_rol}
         rfidCard={employees.rfid_card}
       />
     ))

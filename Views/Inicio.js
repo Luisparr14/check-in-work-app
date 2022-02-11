@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 import { Alert, BackHandler, StyleSheet, Text, View } from 'react-native'
+import { PrimaryButton } from '../components/Buttons'
 export default function Inicio ({ navigation, route }) {
   useEffect(() => {
     const backAction = () => {
@@ -25,6 +26,10 @@ export default function Inicio ({ navigation, route }) {
   return (
     <View style={styles.container}>
       <Text>Inicio</Text>
+      <PrimaryButton
+        title='Agregar Nuevo Empleado'
+        onPress={() => navigation.navigate('AddEmployee')}
+      />
     </View>
   )
 }

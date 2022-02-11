@@ -1,7 +1,6 @@
 import Card from './Card'
 
 export default function ListCards ({ cards }) {
-  console.log('ListCards', cards)
   return (
     cards.map((cards) => (
       <Card

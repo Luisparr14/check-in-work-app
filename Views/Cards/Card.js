@@ -1,12 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native'
 
 export default function Card ({ id, enUso }) {
-  id = parseInt(id.trim().replace(' ', ''))
+  enUso = enUso === 1 ? 'En Uso' : 'Disponible'
   return (
     <View style={styles.container}>
       <View style={styles.content}>
         <Text style={styles.text}><Text style={styles.subText}>Id tarjeta:</Text> {id}</Text>
-        <Text style={styles.text}><Text style={styles.subText}>¿En uso?:</Text> {enUso}</Text>
+        <Text style={styles.text}><Text style={styles.subText}>Estado :</Text> {enUso}</Text>
       </View>
     </View>
   )
