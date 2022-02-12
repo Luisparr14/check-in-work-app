@@ -77,7 +77,6 @@ export default function AddCard ({ navigation, route }) {
         <SelectPicker
           options={hexadecimal}
           onChange={(itemValue) => {
-            console.log(itemValue)
             setCardNumber({ ...cardNumber, segundoValor: itemValue })
           }}
           value={cardNumber.segundoValor}
@@ -147,7 +146,7 @@ const styles = StyleSheet.create({
     flex: 1,
     textAlignVertical: 'center',
     fontSize: 40,
-    fontFamily: 'sans-serif-condensed' || 'sans-serif',
+    fontFamily: 'cascadia-code-pl-regular' || 'sans-serif-condensed' || 'sans-serif',
     color: '#fff',
     marginBottom: 5,
     fontWeight: 'bold',

@@ -71,7 +71,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: 'cascadia-code-pl',
     color: '#fff',
     marginTop: 50,
     marginBottom: 50

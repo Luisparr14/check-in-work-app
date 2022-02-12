@@ -28,31 +28,32 @@ export default function Login ({ navigation }) {
     }
   }
   return (
-    <>
-      <View style={styles.container}>
-        <View style={styles.titleContainer}>
-          <Text style={styles.textTitle}>Check in work</Text>
-        </View>
-        <InputText
-          placeHolder='Numero de empleado (CC)'
-          value={id}
-          onChangeText={setId}
-        />
-        <PrimaryButton
-          title='Ingresar'
-          onPress={handleLogin}
-        />
+    <View style={styles.container}>
+      <View style={styles.titleContainer}>
+        <Text style={[styles.textTitle, {
+          fontFamily: 'cascadia-code-pl'
+        }]}>Check in work</Text>
       </View>
-    </>
+      <InputText
+        placeHolder='Numero de empleado (CC)'
+        value={id}
+        onChangeText={setId}
+      />
+      <PrimaryButton
+        title='Ingresar'
+        onPress={handleLogin}
+      />
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: '#aaa',
     display: 'flex',
     justifyContent: 'center',
-    height: '100%'
+    alignContent: 'center'
   },
   titleContainer: {
     bottom: '20%',
@@ -65,7 +66,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 50,
     color: '#fff',
-    fontWeight: 'bold'
+    fontFamily: 'cascadia-code-pl-bold',
+    width: '100%'
   },
   logo: {
     alignSelf: 'center',

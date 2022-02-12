@@ -32,6 +32,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     backgroundColor: '#fff',
     fontSize: 20,
+    fontFamily: 'cascadia-code-pl',
     width: '90%'
   }
 })

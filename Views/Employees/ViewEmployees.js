@@ -39,7 +39,7 @@ export default function ViewEmployees ({ navigation, route }) {
       setRefreshing(false)
     })
   }, [])
-  
+
   const { data } = useAxios(`${url}/empleados`, refreshing)
 
   return (
@@ -52,7 +52,8 @@ export default function ViewEmployees ({ navigation, route }) {
           <RefreshControl
             refreshing={refreshing}
             onRefresh={onRefresh}
-          />}>
+          />
+        }>
         <View style={styles.container}>
           <Text style={styles.title}>Lista empleados</Text>
           <ListEmployees
@@ -71,7 +72,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 30,
-    fontWeight: 'bold',
+    fontFamily: 'cascadia-code-pl',
     color: '#fff',
     marginTop: 50,
     marginBottom: 50

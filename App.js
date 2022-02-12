@@ -11,6 +11,8 @@ import ViewEmployees from './Views/Employees/ViewEmployees'
 import ViewCards from './Views/Cards/ViewCards'
 import ViewRecords from './Views/Records/ViewRecords'
 import AddEmployee from './Views/Employees/AddEmployee'
+import { useFonts } from 'expo-font'
+import DeleteEmployee from './Views/Employees/DeleteEmployee'
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -67,6 +69,7 @@ function Stacks () {
         <Stack.Screen name="HomeTabs" component={MyTabs} options={{ headerShown: false }} />
         <Stack.Screen name="AddCard" component={AddCard} options={{ headerShown: false }} />
         <Stack.Screen name="AddEmployee" component={AddEmployee} options={{ headerShown: false }} />
+        <Stack.Screen name="DeleteEmployee" component={DeleteEmployee} options={{ headerShown: false }} />
       </Stack.Navigator>
     </>
   )
@@ -85,11 +88,22 @@ export default function App ({ navigation }) {
       ])
       return true
     }
+
     BackHandler.addEventListener(
       'hardwareBackPress',
       backAction
     )
   }, [])
+
+  const [fontsLoaded] = useFonts({
+    'cascadia-code-pl-regular': require('./assets/fonts/CascadiaCodePL-Regular.otf'),
+    'cascadia-code-pl': require('./assets/fonts/CascadiaCodePL.ttf'),
+    'cascadia-code-pl-bold': require('./assets/fonts/CascadiaCodePL-Bold.otf')
+  })
+
+  if (!fontsLoaded) {
+    return null
+  }
 
   return (
     <NavigationContainer>

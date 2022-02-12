@@ -29,7 +29,7 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    fontFamily: 'sans-serif-condensed' || 'sans-serif',
+    fontFamily: 'cascadia-code-pl-regular' || 'sans-serif-condensed' || 'sans-serif',
     color: '#fff',
     marginBottom: 5,
     fontWeight: 'bold',

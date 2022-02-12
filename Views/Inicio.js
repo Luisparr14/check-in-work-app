@@ -28,7 +28,14 @@ export default function Inicio ({ navigation, route }) {
       <Text>Inicio</Text>
       <PrimaryButton
         title='Agregar Nuevo Empleado'
+        width={'50%'}
         onPress={() => navigation.navigate('AddEmployee')}
+      />
+      <PrimaryButton
+        title='Eliminar empleado'
+        width={'50%'}
+        backgroundColor={'#f44336'}
+        onPress={() => navigation.navigate('DeleteEmployee')}
       />
     </View>
   )

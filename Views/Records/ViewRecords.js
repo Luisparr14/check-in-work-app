@@ -47,7 +47,6 @@ export default function ViewEmployees ({ navigation, route }) {
 
   const { data } = useAxios(`${url}/registros`, refreshing)
 
-  console.log(data.length)
   const selectInitialDate = () => {
     setChooseInitialDate(true)
     setShowDatePicker(true)
@@ -149,16 +148,19 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   title: {
-    fontSize: 30,
-    fontWeight: 'bold',
+    fontSize: 25,
+    fontFamily: 'cascadia-code-pl',
     color: '#fff',
     marginTop: 50,
     marginBottom: 50,
     height: 50,
     textAlign: 'center',
-    textAlignVertical: 'center'
+    textAlignVertical: 'center',
+    backgroundColor: '#000',
+    width: '100%'
   },
   headerTitle: {
+    fontFamily: 'cascadia-code-pl',
     display: 'flex',
     flex: 1,
     justifyContent: 'center',

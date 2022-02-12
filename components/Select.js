@@ -1,23 +1,36 @@
 import { Picker } from '@react-native-picker/picker'
-import { StyleSheet, Text } from 'react-native'
-export default function SelectPicker ({ onChange, value, options, type, title }) {
+import { StyleSheet, Text, View } from 'react-native'
+export default function SelectPicker ({ onChange, value, options, type, title, textAlign, width }) {
   return (
     <>
-      <Text style={styles.text}>{title}</Text>
-      <Picker
-        selectedValue={value}
-        onValueChange={onChange}
-        style={styles.picker}
-      >
-        {options && options.map((item, index) => {
-          if (type === 'card') {
-            return (<Picker.Item key={index} label={item.id_card} value={item.id_card} />)
-          } else {
-            return <Picker.Item label={item} value={item} key={index} />
+      <Text style={[styles.text, {
+        textAlign: textAlign === undefined ? 'center' : textAlign,
+        width: width === undefined ? '90%' : width
+      }]}>{title}</Text>
+      <View style={[styles.pickerContainer, {
+        width: width === undefined ? '90%' : width
+      }]}>
+        <Picker
+          selectedValue={value}
+          onValueChange={onChange}
+          style={{
+            width: '100%',
+            fontFamily: 'cascadia-code-pl',
+            color: '#000'
+          }}
+        >
+          {options && options.map((item, index) => {
+            if (type === 'card') {
+              return (<Picker.Item key={item.id_card} label={item.id_card} value={item.id_card} />)
+            } else if (type === 'role') {
+              return (<Picker.Item key={item.idrol} label={item.nombre_rol} value={item.idrol} />)
+            } else {
+              return <Picker.Item label={item} value={item} key={index} />
+            }
           }
-        }
-        )}
-      </Picker>
+          )}
+        </Picker>
+      </View>
     </>
   )
 }
@@ -25,23 +38,24 @@ export default function SelectPicker ({ onChange, value, options, type, title })
 const styles = StyleSheet.create({
   text: {
     fontSize: 20,
-    fontFamily: 'sans-serif-condensed' || 'sans-serif',
-    color: '#fff',
-    marginBottom: 5,
-    fontWeight: 'bold',
-    fontStyle: 'italic',
-    textShadowColor: '#000',
+    fontFamily: 'cascadia-code-pl',
+    color: '#000',
+    marginBottom: 5,  
+    textShadowColor: '#fff',
     textShadowOffset: { width: 1, height: 1 },
     textShadowRadius: 1,
-    textDecorationStyle: 'solid'
+    textDecorationStyle: 'solid',
+    alignSelf: 'center'
   },
-  picker: {
+  pickerContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignSelf: 'center',
     borderWidth: 1,
-    borderColor: '#f00',
+    borderColor: '#ccc',
+    margin: 10,
     borderRadius: 5,
-    backgroundColor: '#ccc',
-    fontSize: 20,
-    width: '90%',
-    color: '#000'
+    backgroundColor: '#fff',
+    fontSize: 20
   }
 })
