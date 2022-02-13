@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { Alert, BackHandler, StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native'
 import ListRecords from './ListRecords'
 import { useAxios } from '../../Hooks/useAxios'
-import { url } from '../../config'
+import { apiUrl } from '../../config'
 import DateTimePickerModal from 'react-native-modal-datetime-picker'
 import { PrimaryButton } from '../../components/Buttons'
 const wait = (timeout) => {
@@ -45,7 +45,7 @@ export default function ViewEmployees ({ navigation, route }) {
     })
   }, [])
 
-  const { data } = useAxios(`${url}/registros`, refreshing)
+  const { data } = useAxios(`${apiUrl}/registros`, refreshing)
 
   const selectInitialDate = () => {
     setChooseInitialDate(true)
@@ -59,6 +59,7 @@ export default function ViewEmployees ({ navigation, route }) {
 
   const handleConfirm = (date) => {
     if (chooseInitialDate) {
+      date = new Date(new Date(date).setHours(0, 0, 0, 0))
       setInitialDate(date)
       if (date > finalDate) {
         Alert.alert('Fecha inicial no puede ser mayor a fecha final')
@@ -66,6 +67,7 @@ export default function ViewEmployees ({ navigation, route }) {
         setInitialDate(new Date(newDate.setDate(newDate.getDate() - 1)))
       }
     } else {
+      date = new Date(new Date(date).setHours(23, 59, 59, 59))
       setFinalDate(date)
       if (date < initialDate) {
         Alert.alert('Error', 'Fecha final no puede ser menor a fecha inicial')
@@ -156,7 +158,6 @@ const styles = StyleSheet.create({
     height: 50,
     textAlign: 'center',
     textAlignVertical: 'center',
-    backgroundColor: '#000',
     width: '100%'
   },
   headerTitle: {

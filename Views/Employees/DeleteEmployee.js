@@ -2,7 +2,7 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Alert, BackHandler, ScrollView, StyleSheet, Text, View } from 'react-native'
 import InputText from '../../components/InputText'
-import { url } from '../../config'
+import { apiUrl } from '../../config'
 import { useAxios } from '../../Hooks/useAxios'
 import ListEmployees from './ListEmployees'
 
@@ -31,12 +31,12 @@ export default function DeleteEmployee ({ navigation, route }) {
 
   const [employeeId, setEmployeeId] = useState('')
   const [refreshing, setRefreshing] = useState(false)
-  const { data: employees } = useAxios(`${url}/empleados`, refreshing)
+  const { data: employees } = useAxios(`${apiUrl}/empleados`, refreshing)
 
   const deleteEmployee = async (id) => {
     try {
       setRefreshing(true)
-      const res = await axios.delete(`${url}/empleados/delete-employee/${id}`)
+      const res = await axios.delete(`${apiUrl}/empleados/delete-employee/${id}`)
       setRefreshing(false)
       setEmployeeId('')
       Alert.alert('Exito', res.data.message)

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Alert, BackHandler, StyleSheet, Text, View, ScrollView, RefreshControl } from 'react-native'
-import { url } from '../../config'
+import { apiUrl } from '../../config'
 import { useAxios } from '../../Hooks/useAxios'
 import ListCards from './ListCards'
 
@@ -32,7 +32,7 @@ export default function ViewCards ({ navigation, route }) {
   }, [])
 
   const [refreshing, setRefreshing] = React.useState(false)
-  
+
   const onRefresh = React.useCallback(() => {
     setRefreshing(true)
     wait(200).then(() => {
@@ -40,40 +40,59 @@ export default function ViewCards ({ navigation, route }) {
     })
   }, [])
 
-  const { data } = useAxios(`${url}/cards`, refreshing)
-  
+  const { data } = useAxios(`${apiUrl}/cards`, refreshing)
+
   return (
-    <>
-      <ScrollView
-        style={{
-          backgroundColor: '#aaa'
-        }}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />}>
-        <View style={styles.container}>
-          <Text style={styles.title}>Lista de tarjetas</Text>
-          <ListCards
-            cards={data}
-          />
-        </View>
-      </ScrollView>
-    </>
+    <View style={styles.container}>
+      <View style={styles.header}>
+        <Text style={styles.title}>Lista de tarjetas</Text>
+      </View>
+      <View style={styles.main}>
+        <ScrollView
+          style={{
+            width: '100%'
+          }}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+            />}>
+          <View style={styles.listCards}>
+            <ListCards
+              cards={data}
+            />
+          </View>
+        </ScrollView>
+      </View>
+    </View>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
     backgroundColor: '#aaa',
     alignItems: 'center'
   },
+  listCards: {
+    flex: 1,
+    alignItems: 'center'
+  },
+  header: {
+    flex: 0.2,
+    width: '100%',
+    justifyContent: 'center'
+  },
   title: {
-    fontSize: 30,
-    fontFamily: 'cascadia-code-pl',
+    fontSize: 40,
     color: '#fff',
-    marginTop: 50,
-    marginBottom: 50
+    textAlign: 'center',
+    width: '100%',
+    fontFamily: 'cascadia-code-pl'
+  },
+  main: {
+    flex: 0.8,
+    width: '100%',
+    alignItems: 'center'
   }
 })

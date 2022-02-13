@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { StyleSheet, Text, View, Alert } from 'react-native'
 import { PrimaryButton } from '../components/Buttons'
 import InputText from '../components/InputText'
-import { url } from '../config'
+import { apiUrl } from '../config'
 
 export default function Login ({ navigation }) {
   const [id, setId] = useState('')
@@ -13,18 +13,23 @@ export default function Login ({ navigation }) {
       Alert.alert('Error', 'Ingrese su identificación')
       return
     }
-
+    console.log('id', id)
     try {
-      const response = await axios.post(`${url}/auth/login`, { id })
+      const response = await axios.post(`${apiUrl}/auth/login`, { id }, {
+        timeout: 500,
+        timeoutErrorMessage: 'Error de conexión con el servidor'
+      })
+      console.log(response)
       if (response.data.ok) {
-        Alert.alert(`Bienvenido ${response.data.empleado.name} ${response.data.empleado.sec_name}`,
+        Alert.alert(`Bienvenido ${response.data.empleado.name} ${response.data.empleado.lastname}`,
           `${response.data.message}`,
           [
             { text: 'OK', onPress: () => navigation.replace('HomeTabs', { user: response.data.empleado.name }) }
           ])
       }
     } catch (error) {
-      Alert.alert('Error', error.response.data.message)
+      console.log(error)
+      error.response ? Alert.alert('Error', error.response.data.message) : Alert.alert('Error', error.message)
     }
   }
   return (

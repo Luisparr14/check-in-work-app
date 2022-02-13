@@ -13,6 +13,7 @@ import ViewRecords from './Views/Records/ViewRecords'
 import AddEmployee from './Views/Employees/AddEmployee'
 import { useFonts } from 'expo-font'
 import DeleteEmployee from './Views/Employees/DeleteEmployee'
+import AssignCard from './Views/Employees/AssignCard'
 const Stack = createNativeStackNavigator()
 const Tab = createBottomTabNavigator()
 
@@ -70,6 +71,7 @@ function Stacks () {
         <Stack.Screen name="AddCard" component={AddCard} options={{ headerShown: false }} />
         <Stack.Screen name="AddEmployee" component={AddEmployee} options={{ headerShown: false }} />
         <Stack.Screen name="DeleteEmployee" component={DeleteEmployee} options={{ headerShown: false }} />
+        <Stack.Screen name="AssignCard" component={AssignCard} options={{ headerShown: false }} />
       </Stack.Navigator>
     </>
   )

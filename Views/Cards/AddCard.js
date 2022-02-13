@@ -3,7 +3,7 @@ import { Alert, BackHandler, ScrollView, StyleSheet, Text, View } from 'react-na
 import SelectPicker from '../../components/Select'
 import { PrimaryButton } from '../../components/Buttons'
 import axios from 'axios'
-import { url } from '../../config'
+import { apiUrl } from '../../config'
 
 export default function AddCard ({ navigation, route }) {
   useEffect(() => {
@@ -53,7 +53,7 @@ export default function AddCard ({ navigation, route }) {
 
   const SendCardToServer = async () => {
     try {
-      const res = await axios.post(`${url}/cards/add-card`, { idCard: uuidCard })
+      const res = await axios.post(`${apiUrl}/cards/add-card`, { idCard: uuidCard })
       setCardNumber(card)
       Alert.alert('¡Éxito!', res.data.message)
     } catch (error) {

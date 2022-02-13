@@ -8,6 +8,7 @@ export default function ListRecords ({ records }) {
         number={records.id_registro}
         card={records.card}
         fechaHora={records.dateandtime}
+        empleado={records.name !== null ? `${records.name} ${records.last_name}` : null}
       />
     ))
   )

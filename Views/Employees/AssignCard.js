@@ -2,18 +2,15 @@ import axios from 'axios'
 import { useEffect, useState } from 'react'
 import { Alert, BackHandler, StyleSheet, Text, View, RefreshControl } from 'react-native'
 import { PrimaryButton } from '../../components/Buttons'
-import InputText from '../../components/InputText'
 import SelectPicker from '../../components/Select'
 import { apiUrl } from '../../config'
 import { useAxios } from '../../Hooks/useAxios'
-
 const firstOptions = [
   {
     description: 'Selecciona una opción'
   }
 ]
-
-export default function AddEmployee ({ navigation, route }) {
+export default function AssignCard ({ navigation, route }) {
   useEffect(() => {
     const backAction = () => {
       Alert.alert('¿SALIR?', '¿Estas seguro de salir?', [
@@ -36,81 +33,82 @@ export default function AddEmployee ({ navigation, route }) {
     return () => backHandler.remove()
   }, [])
 
-  const dataEmployee = { idEmpleado: '', name: '', secName: null, lastName: '', rol: '', rfidCard: null }
-  const [employee, setEmployee] = useState(dataEmployee)
   const [refreshing, setRefreshing] = useState(false)
   const { data: cards } = useAxios(`${apiUrl}/cards`, refreshing)
-  const { data: roles } = useAxios(`${apiUrl}/roles`, false)
+  const { data: employees } = useAxios(`${apiUrl}/empleados`, refreshing)
 
-  const AgregarEmpleado = async () => {
-    if (employee.name === '' || employee.lastName === '' || employee.rol === '' || employee.idEmpleado === '') {
-      console.log('Employee', employee)
-      Alert.alert('¡Error!', 'Todos los campos son obligatorios')
+  const [card, setCard] = useState('')
+  const [employee, setEmployee] = useState('')
+
+  const handleAssign = () => {
+    console.log('Employee', employee)
+    console.log('Card', card)
+    if (employee === '' || card === '') {
+      Alert.alert('Error', 'Debe seleccionar un empleado y una tarjeta')
       return
     }
+
+    Alert.alert('¿Asignar tarjeta?', '¿Estas seguro de asignar la tarjeta?', [
+      {
+        text: 'Cancelar',
+        onPress: () => null,
+        style: 'cancel'
+      },
+      {
+        text: 'SI',
+        onPress: () => asignarCard()
+      }
+    ])
+  }
+
+  const asignarCard = async () => {
     try {
       setRefreshing(true)
-      const res = await axios.post(`${apiUrl}/empleados/add-employee`, employee)
+      const res = await axios.post(`${apiUrl}/empleados/assign-card`, { idEmpleado: employee, rfidCard: card })
       setRefreshing(false)
-      setEmployee(dataEmployee)
+      setEmployee('')
+      setCard('')
+      // setEmployee({ idEmpleado: employees.length === 0 ? '' : employees.filter(e => e.rfid_card === null)[0].id_empleado, rfidCard: cards.length === 0 ? '' : cards.filter(card => card.en_uso === 0)[0].id_card })
       Alert.alert('¡Éxito!', res.data.message)
     } catch (error) {
-      console.log(error.response.data)
+      Alert.alert('Error', error.response.data.message)
     }
   }
 
   return (
-    <View style={styles.container}
-
-    >
+    <View style={styles.container}>
       <View style={styles.header}>
-        <Text style={styles.title}>Agregar Empleado</Text>
+        <Text style={styles.title}>Asignar Tarjeta</Text>
       </View>
       <View style={styles.main}>
-        <InputText
-          placeHolder='Cedula'
-          onChangeText={(text) => setEmployee({ ...employee, idEmpleado: text })}
-          value={employee.idEmpleado}
-        />
-        <InputText
-          placeHolder='Nombre'
-          onChangeText={(text) => setEmployee({ ...employee, name: text })}
-          value={employee.name}
-          type='default'
-        />
-        <InputText
-          placeHolder={'Segundo nombre'}
-          onChangeText={(text) => setEmployee({ ...employee, secName: text })}
-          value={employee.secName}
-          type='default'
-        />
-        <InputText
-          placeHolder='Apellido'
-          onChangeText={(text) => setEmployee({ ...employee, lastName: text })}
-          value={employee.lastName}
-          type='default'
-        />
         <SelectPicker
-          options={roles}
-          title='Rol'
-          type={'role'}
+          options={firstOptions.concat(employees.filter(employee => employee.rfid_card === null))}
+          title='Empleado'
+          type={'employee'}
           textAlign='left'
-          value={employee.rol}
-          onChange={(value) => setEmployee({ ...employee, rol: value })}
+          value={employee}
+          onChange={(value) => {
+            console.log('CAMBIOOO EMPLOYEE', value)
+            setEmployee(value)
+          }
+          }
         />
         <SelectPicker
           options={firstOptions.concat(cards.filter(card => card.en_uso === 0))}
-          title='Tarjeta Asignada'
+          title='Tarjeta a asignar'
           type={'card'}
           textAlign='left'
-          value={employee.rfidCard}
-          onChange={(value) => setEmployee({ ...employee, rfidCard: value })}
+          value={card}
+          onChange={(value) => {
+            console.log('CAMBIOOOOOOO CARDDDD', value)
+            setCard(value)
+          }}
         />
       </View>
       <View style={styles.footer}>
         <PrimaryButton
-          title='Agregar Empleado'
-          onPress={AgregarEmpleado}
+          title='Asignar Tarjeta'
+          onPress={handleAssign}
           topBtn={0}
         />
       </View>
