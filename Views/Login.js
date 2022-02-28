@@ -16,12 +16,11 @@ export default function Login ({ navigation }) {
     console.log('id', id)
     try {
       const response = await axios.post(`${apiUrl}/auth/login`, { id }, {
-        timeout: 500,
+        timeout: 2000,
         timeoutErrorMessage: 'Error de conexión con el servidor'
       })
-      console.log(response)
       if (response.data.ok) {
-        Alert.alert(`Bienvenido ${response.data.empleado.name} ${response.data.empleado.lastname}`,
+        Alert.alert(`${response.data.empleado.name} ${response.data.empleado.last_name}`,
           `${response.data.message}`,
           [
             { text: 'OK', onPress: () => navigation.replace('HomeTabs', { user: response.data.empleado.name }) }

@@ -1,4 +1,5 @@
 import { StyleSheet, Text, View } from 'react-native'
+import moment from 'moment'
 
 export default function RecordCard ({ number, card, fechaHora, empleado }) {
   if (empleado === null) {
@@ -8,11 +9,13 @@ export default function RecordCard ({ number, card, fechaHora, empleado }) {
     card = 'La tarjeta fue borrada'
   }
   const dateTime = new Date(fechaHora)
-  console.log(dateTime.toLocaleTimeString('es-ES', {
-    hourCycle: 'h12'
-  }))
   const date = dateTime.toLocaleDateString()
   const time = dateTime.toLocaleTimeString()
+  try {
+    console.log(moment(time).format('DD/MM/YYYY HH:mm:ss'))
+  } catch (error) {
+    console.log(error)
+  }
   return (
     <View style={styles.container}>
       <View style={styles.content}>

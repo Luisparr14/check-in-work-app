@@ -8,7 +8,6 @@ import { PrimaryButton } from '../../components/Buttons'
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout))
 }
-
 export default function ViewEmployees ({ navigation, route }) {
   useEffect(() => {
     const backAction = () => {
@@ -58,24 +57,29 @@ export default function ViewEmployees ({ navigation, route }) {
   }
 
   const handleConfirm = (date) => {
-    if (chooseInitialDate) {
-      date = new Date(new Date(date).setHours(0, 0, 0, 0))
-      setInitialDate(date)
-      if (date > finalDate) {
-        Alert.alert('Fecha inicial no puede ser mayor a fecha final')
-        const newDate = new Date(finalDate)
-        setInitialDate(new Date(newDate.setDate(newDate.getDate() - 1)))
+    try {
+      if (chooseInitialDate) {
+        date = new Date(new Date(date).setHours(0, 0, 0, 0))
+        setInitialDate(date)
+        if (date > finalDate) {
+          Alert.alert('Fecha inicial no puede ser mayor a fecha final')
+          const newDate = new Date(finalDate)
+          setInitialDate(new Date(newDate.setDate(newDate.getDate() - 1)))
+        }
+      } else {
+        date = new Date(new Date(date).setHours(23, 59, 59, 59))
+        setFinalDate(date)
+        if (date < initialDate) {
+          Alert.alert('Error', 'Fecha final no puede ser menor a fecha inicial')
+          const newDate = new Date(initialDate)
+          setFinalDate(new Date(newDate.setDate(newDate.getDate() + 1)))
+        }
       }
-    } else {
-      date = new Date(new Date(date).setHours(23, 59, 59, 59))
-      setFinalDate(date)
-      if (date < initialDate) {
-        Alert.alert('Error', 'Fecha final no puede ser menor a fecha inicial')
-        const newDate = new Date(initialDate)
-        setFinalDate(new Date(newDate.setDate(newDate.getDate() + 1)))
-      }
+      setShowDatePicker(false)
+    } catch (error) {
+      setShowDatePicker(false)
+      console.log('Error en la fecha', error)
     }
-    setShowDatePicker(false)
   }
   const handleCancel = () => {
     setShowDatePicker(false)
